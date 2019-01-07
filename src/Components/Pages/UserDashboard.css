@@ -1,0 +1,10 @@
+header {
+  position: fixed;
+}
+
+.udb {
+  font-size: 100px;
+  padding-top: 75px; /*pushes div away from 75px header*/
+  height: 100%;
+  width: 100%;
+}
