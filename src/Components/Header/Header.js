@@ -22,18 +22,18 @@ export default class Header extends Component {
     else { button = <button className="LoginButton">Sign Up/Login</button>}
 
 //Conditional rendering for the page names
-    
+    const title = this.props.title
 
     return (
       <header className="Header">
         <div>
 
         <Link to="/" className="links">
-        <img src={logo} alt="Logo" className="Logo" />
+        <img src={logo} alt="Logo" className="Logo" title="New Game"/>
         </Link>
-          <div className="page_name">Hangman Game</div>
+          <div className="page_name">{title}</div>
           <div>
-           <Link to="/userdashboard" className="links">User.image</Link> 
+           <Link to="/userdashboard" className="links" title="User Dashboard">User.image</Link> 
             {button}
           </div>
           

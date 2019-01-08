@@ -7,14 +7,14 @@ export default class UserDashboard extends Component {
     super()
 
     this.state = {
-      pageName: "UserDashboard"
+      title: "User Dashboard"
     }
   }
   render() {
     return(
       
       <div className="main">
-        <Header/>
+        <Header title={this.state.title}/>
       <div className="udb">UserDashboard</div>
       
       </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
-import GamePage from './Components/Pages/GamePage';
+import GamePage from './Components/Pages/GP/GamePage';
 import UserDashboard from './Components/Pages/UserDashboard';
 import Admin from './Components/Pages/Admin';
 
