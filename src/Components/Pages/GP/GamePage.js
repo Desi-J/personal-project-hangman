@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Header from '../../Header/Header';
 import Definition from './Definition'; 
 import Word from './Word';
+import Strikes from './Strikes';
 import './GamePage.css';
 
 export default class GamePage extends Component {
@@ -10,35 +11,19 @@ constructor() {
 
   this.state = {
     title: "Game Page",
-    letterChosen: "",
-    letterSubmitted: '',
+    letterChosen: [],
+    lettersSubmitted: [],
     showDefinition: false
   }
-  this.guessLetter = this.guessLetter.bind(this);
-  this.checkLetter = this.checkLetter.bind(this);
+ 
   this.showDefinitionFunction = this.showDefinitionFunction.bind(this);
-}
-
-
-guessLetter(e) {
   
-  console.log('letter: ', e.target.value);
-  this.setState({
-    letterChosen: e.target.value
-  })
 }
 
-checkLetter() {
-  let {letterChosen} = this.state;
-  console.log('checkLetter: ', letterChosen)
-  console.log('lc: ', letterChosen)
-// if letter chosen is length of 1 and matches any of the alphabet caps or naw
-  if (letterChosen.match(/[a-z]/i)) { alert("ok!")}
-  else {alert("Entry must be a single letter.")}
-  this.setState({
-    letterSubmitted: letterChosen
-  })
-}
+
+
+
+
 
 showDefinitionFunction() {
   // window.confirm is a function with true false if press ok then true if press cancel then false and cancel
@@ -50,21 +35,31 @@ showDefinitionFunction() {
 
 
 
-  render() {
-    return (
-      <div>
-        <Header title={this.state.title}/>
+render() {
+  let {lettersSubmitted} = this.state
+  // console.log('lettersSubmitted:', lettersSubmitted)
+ 
+  return (
+    
+    <div className="gamepage-parent">
+      <div >
+          <Header title={this.state.title}/>
         <div className="gp">
-        <div>Game Page</div>
-        <Word className="word" letterChosen={this.state.letterSubmitted}/>
-         {this.state.showDefinition ? <Definition/> : null}
-    {!this.state.showDefinition ? <div><button  onClick={this.showDefinitionFunction}>Definiton</button> </div> : null /*if showdefinition is false show button*/ }
-        <div>
-          <input title="Guess A Letter" maxLength='1' onChange={this.guessLetter}/>
-          <button className="enter-button" title="You Can Also Press Enter" onClick={this.checkLetter}>Try</button>
+          <div >Game Page
+          
+            {this.state.showDefinition ? <Definition/> : null}
+            {!this.state.showDefinition ? <div><button  onClick={this.showDefinitionFunction}>Definiton</button> </div> : null /*if showdefinition is false show button*/ }
+            <Word />
+          
+          </div>
+          </div>
         </div>
-        </div>
+          <div >
+          { (this.state.showDefinition) ? <Strikes className="strikes" add={1} /> : <Strikes className="strikes" add={0}/>}
+          </div>
+      
       </div>
+    
     )
   }
 }
