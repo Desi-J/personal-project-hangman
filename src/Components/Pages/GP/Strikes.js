@@ -1,40 +1,51 @@
 import React, {Component} from 'react';
-import GamePage from './GamePage';
+import {connect} from 'react-redux';
 
-export default class Strikes extends Component {
+ class Strikes extends Component {
   constructor(props) {
     super(props)
 
-    // this.state = {
-    //   add:0,
-    //   strikeNumber: 0
-    // }
+    this.state = {
+      
+      strikeNumber: 0
+    }
     this.updateStrikeNumber = this.updateStrikeNumber.bind(this);
+}
+componentDidMount() {
+  this.updateStrikeNumber()
 }
 
 updateStrikeNumber() {
   let {strikeNumber} = this.state
   this.setState({
-    strikeNumber: strikeNumber +1 
+    strikeNumber: this.props.strikeNumber 
   })
 }
 
 render() {
-  // let {strikeNumber} = this.state
+  console.log('word strike number', this.state.strikeNumber)
+  let {strikeNumber} = this.props
   const checkmark = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Black_check.svg/240px-Black_check.svg.png",
   bigX = "https://upload.wikimedia.org/wikipedia/commons/a/a9/Black_x.svg";
-  const {add} = this.props
-  let {strikeNumber} = this.props
+  
+  // let {strikeNumber} = this.state
 
-  console.log('add: ', add)
+  
     return(
       <div className="strikes-2">
-      <div> {(strikeNumber >= 1 || add == 1) ? <img src={bigX} className="bigX" title="Strike 1!"/> : <img src={checkmark} className="checkmark" title="No Strikes yay!"/>}</div>
-      <div> {(strikeNumber >= 2 || (strikeNumber >=1 && add == 1)) ? <img src={bigX} className="bigX" title="Strike 2!"/> : <img src={checkmark} className="checkmark" title="Strike 1!"/>}</div>
-      <div> {(strikeNumber >= 3 || (strikeNumber >=2 && add == 1)) ? <img src={bigX} className="bigX" title="Strike 3!"/> : <img src={checkmark} className="checkmark" title="Strike 2!"/>}</div>
-      <div> {(strikeNumber >= 4 || (strikeNumber >=3 && add == 1)) ? <img src={bigX} className="bigX" title="Strike 4!"/> : <img src={checkmark} className="checkmark" title="Strike 4!"/>}</div>
-      <button onClick={this.updateStrikeNumber}>Strike</button>
+      <div> {(strikeNumber >= 2) ? <img src={bigX}  alt="X" className="bigX" title="Strike 1!"/> : <img src={checkmark} alt="CM" className="checkmark" title="No Strikes yay!"/>}</div>
+      <div> {(strikeNumber >= 3) ? <img src={bigX} className="bigX" alt="X" title="Strike 2!"/> : <img src={checkmark} alt="CM" className="checkmark" />}</div>
+      <div> {(strikeNumber >= 4) ? <img src={bigX} className="bigX" alt="X" title="Strike 3!"/> : <img src={checkmark} alt="CM" className="checkmark" />}</div>
+      <div> {(strikeNumber >= 5) ? <img src={bigX} className="bigX" alt="X" title="Strike 4!"/> : <img src={checkmark} alt="CM" className="checkmark" />}</div>
+    
       </div>
     )
   }
+}// GETS STRIKE NUMBER FRO REDUX STORE
+function mapStateToProps(reducerState) {
+  return {
+    strikeNumber: reducerState.strikeNumber
+  }
 }
+
+export default connect(mapStateToProps)(Strikes);

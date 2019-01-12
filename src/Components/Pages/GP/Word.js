@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import GamePage from './GamePage';
- 
-export default class Word extends Component {
+import {connect} from 'react-redux';
+import {strikeUpdater} from '../../../dux/reducer'; //NOW WE HAVE ACESS TO FUNCTION IN HERE
+
+export class Word extends Component {
   constructor() {
     super()
     this.state = {
-      word: "potato",
+      word: "POTATO",
       puzzleWord: "",
       letterChosen: "",
       lettersUsed: [],
@@ -20,7 +21,10 @@ export default class Word extends Component {
 
 
   componentWillMount() {
+  
+   console.log('word:', this.state.word)
  this.setState({
+   word: this.state.word.toLowerCase(),
    puzzleWord: this.state.word.replace(/[A-Z]/gi, '-')
  })
  console.log('-pw: ', this.state.puzzleWord)
@@ -31,7 +35,7 @@ export default class Word extends Component {
   
     console.log('letter: ', e.target.value);
     this.setState({
-      letterChosen: e.target.value
+      letterChosen: e.target.value.toLowerCase()
     })
   }
 
@@ -73,10 +77,12 @@ export default class Word extends Component {
           if(!word.includes(letterChosen)) {
             // for(let i=0;i<lettersUsed.length;i++) {
               if(lettersUsed.join('').includes(letterChosen)) {
-                this.setState({
-                strikeNumber: strikeNumber +=1,
-                })
-                alert("Strike " + strikeNumber)
+                // this.setState({
+                // strikeNumber: strikeNumber +=1,
+                // })
+                let newStrikes = this.props.strikeNumber + 1
+                this.props.strikeUpdater(newStrikes)
+                alert("Strike " + this.props.strikeNumber)
               // }
             }
             
@@ -99,8 +105,9 @@ handleChange = (e, key) => {
 }
 
 submitWord = () => {
+  
   this.setState({
-    word: this.state.puzzleInput,
+    word: this.state.puzzleInput.toLowerCase(),
     puzzleWord: this.state.puzzleInput.replace(/[A-Z]/gi, '-'),
     puzzleInput: ''
   })
@@ -114,7 +121,7 @@ render() {
       <div className="word">
         <div className="puzzleword">{puzzleWord}</div>
        
-          <input title="Guess A Letter"  maxLength={1} onChange={this.guessLetter}/>
+          <input placeholder="Guess A Letter"  maxLength={1} onChange={this.guessLetter}/>
           <button className="enter-button" title="You Can Also Press Enter" onClick={() => this.updatePuzzleWord()}  >Try</button>
           <div><input type='text' value={this.state.puzzleInput} onChange={(e) => this.handleChange(e, 'puzzleInput')} placeholder='Enter puzzle word.'/><button onClick={this.submitWord}>Submit</button></div>
         
@@ -122,3 +129,11 @@ render() {
     )
     }
   }
+
+  function mapStateToProps(state) {
+    return {
+      strikeNumber: state.strikeNumber
+    }
+  }
+  
+  export default connect(mapStateToProps, {strikeUpdater}) (Word) 
