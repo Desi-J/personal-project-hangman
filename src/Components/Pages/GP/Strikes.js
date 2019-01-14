@@ -16,7 +16,7 @@ componentDidMount() {
 }
 
 updateStrikeNumber() {
-  let {strikeNumber} = this.state
+  
   this.setState({
     strikeNumber: this.props.strikeNumber 
   })

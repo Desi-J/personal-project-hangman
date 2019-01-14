@@ -15,7 +15,7 @@ function reducer(state = initialState,  action) {
     case UPDATE_STRIKES:
       return Object.assign({}, state, {strikeNumber: action.payload})
     case UPDATE_WORD:
-      return Object.assign({}, state, {randWord: action.payload})
+      return Object.assign({}, state, {wordObj: action.payload})
 
         default: return state
   }

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {strikeUpdater} from '../../../dux/reducer'; //NOW WE HAVE ACESS TO FUNCTION IN HERE
+import {wordUpdater} from '../../../dux/reducer';
 import axios from 'axios';
 
 export class Word extends Component {
@@ -8,7 +9,7 @@ export class Word extends Component {
     super()
     this.state = {
       wordList: [],
-      word: "POTATO",
+      word: "",
       puzzleWord: "",
       letterChosen: "",
       lettersUsed: [],
@@ -23,23 +24,27 @@ export class Word extends Component {
 
   componentDidMount(){
     console.log('did')
-    this.fetchWords()
   }
-
+  
   componentWillMount() {
     console.log('will ')
-    this.setState({
-      word: this.state.word.toLowerCase(),
-      puzzleWord: this.state.word.replace(/[A-Z]/gi, '-')
-    })
-    
+    this.fetchWords()
+  
   }
   
   
   fetchWords = () => {
     axios.get('/api/words').then(response => {
       console.log('words!!!!! ', response)
-      this.setState({ word: response.data[Math.floor(Math.random()*response.data.length)]})
+      let rand = response.data[Math.floor(Math.random()*response.data.length)]
+      this.props.wordUpdater(rand)
+      this.setState({ 
+        word: rand.name,
+        puzzleWord: rand.name.replace(/[A-Z]/gi, '-')
+      })
+      console.log('rand', rand)
+
+
 
     })
   }
@@ -144,8 +149,9 @@ render() {
 
   function mapStateToProps(state) {
     return {
-      strikeNumber: state.strikeNumber
+      strikeNumber: state.strikeNumber,
+      wordObj: state.wordObj
     }
   }
   
-  export default connect(mapStateToProps, {strikeUpdater}) (Word) 
+  export default connect(mapStateToProps, {strikeUpdater, wordUpdater}) (Word) 
