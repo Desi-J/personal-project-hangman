@@ -23,7 +23,6 @@ updateStrikeNumber() {
 }
 
 render() {
-  console.log('word strike number', this.state.strikeNumber)
   let {strikeNumber} = this.props
   const checkmark = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Black_check.svg/240px-Black_check.svg.png",
   bigX = "https://upload.wikimedia.org/wikipedia/commons/a/a9/Black_x.svg";

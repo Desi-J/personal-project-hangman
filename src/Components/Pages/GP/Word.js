@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {strikeUpdater} from '../../../dux/reducer'; //NOW WE HAVE ACESS TO FUNCTION IN HERE
+import axios from 'axios';
 
 export class Word extends Component {
   constructor() {
     super()
     this.state = {
+      wordList: [],
       word: "POTATO",
       puzzleWord: "",
       letterChosen: "",
@@ -19,21 +21,31 @@ export class Word extends Component {
 
   }
 
+  componentDidMount(){
+    console.log('did')
+    this.fetchWords()
+  }
 
   componentWillMount() {
+    console.log('will ')
+    this.setState({
+      word: this.state.word.toLowerCase(),
+      puzzleWord: this.state.word.replace(/[A-Z]/gi, '-')
+    })
+    
+  }
   
-   console.log('word:', this.state.word)
- this.setState({
-   word: this.state.word.toLowerCase(),
-   puzzleWord: this.state.word.replace(/[A-Z]/gi, '-')
- })
- console.log('-pw: ', this.state.puzzleWord)
+  
+  fetchWords = () => {
+    axios.get('/api/words').then(response => {
+      console.log('words!!!!! ', response)
+      this.setState({ word: response.data[Math.floor(Math.random()*response.data.length)]})
 
+    })
   }
   
   guessLetter(e) {
   
-    console.log('letter: ', e.target.value);
     this.setState({
       letterChosen: e.target.value.toLowerCase()
     })
@@ -114,8 +126,8 @@ submitWord = () => {
 }
 
 render() {
-  console.log('state', this.state);
   let {puzzleWord} = this.state;
+  console.log('state', this.state)
  
     return(
       <div className="word">
