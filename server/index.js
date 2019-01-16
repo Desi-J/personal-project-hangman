@@ -11,8 +11,10 @@ console.log('Hi! ^_^')
 dotenv.config();
 
 
+//SERVER
 const app = express();
 app.use(bodyParser.json());
+
 //SESSION
 app.use(session({
   store: new (connect(session)) ({
@@ -22,7 +24,7 @@ app.use(session({
   saveUninitialized: false,
   resave: false,
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 7 * 2  //two weeks
+    maxAge: 1000 * 60 * 60 * 24 * 7   //1 week
   }
 }));
 
@@ -34,13 +36,14 @@ massive(process.env.CONNECTION_STRING).then(db => {
 });
 
 
-
+//AUTHCONTROLLER ENDPOINTS
+app.get('/auth/callback', authController.login);
+app.get('/auth/user-data', authController.getUser);
+app.post('/auth/logout', authController.logout);
 //WORDS CONTROLLER ENDPOINTS
-//SERVER
 app.get('/api/words', wordsController.getWords);
 
 
 //SERVER (PORT)
-
 const PORT = 4000;
 app.listen(PORT, () => {console.log(`listening on port ${PORT}`)});

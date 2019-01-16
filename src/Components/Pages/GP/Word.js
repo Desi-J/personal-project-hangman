@@ -35,14 +35,14 @@ export class Word extends Component {
   
   fetchWords = () => {
     axios.get('/api/words').then(response => {
-      console.log('words!!!!! ', response)
+      // console.log('words!!!!! ', response)
       let rand = response.data[Math.floor(Math.random()*response.data.length)]
       this.props.wordUpdater(rand)
       this.setState({ 
         word: rand.name,
         puzzleWord: rand.name.replace(/[A-Z]/gi, '-')
       })
-      console.log('rand', rand)
+      // console.log('rand', rand)
 
 
 
@@ -132,7 +132,7 @@ submitWord = () => {
 
 render() {
   let {puzzleWord} = this.state;
-  console.log('state', this.state)
+  // console.log('state', this.state)
  
     return(
       <div className="word">

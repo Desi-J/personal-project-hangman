@@ -7,4 +7,64 @@ header {
   padding-top: 75px; /*pushes div away from 75px header*/
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.user_info {
+  width: 30vw;
+  height: 90vh;
+  background-color: lightgreen;
+}
+/* ****************************************************************** */
+.user_words {
+  width: 40vw;
+  height: 90vh;
+  background-color: cornflowerblue;
+}
+
+.word_card {
+  height: 150px;
+  max-width:  400px;
+  background-color: white;
+  font-size: 20px;
+  margin: 0 auto;
+  border-style: solid;
+}
+
+.w0rd {
+  font-weight: bold;
+}
+
+.d3f {
+   
+  font-style: italic;
+}
+
+
+/* ******************************************************************** */
+.createAWord {
+  width: 30vw;
+  height: 90vh;
+  background-color: lightsalmon;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+}
+
+.wordName {
+  width: 15vw;
+  align-self: center; 
+}
+
+.word_def {
+  width: 20vw;
+  height: 200px;
+  align-self: center; 
+
+}
+
+.button {
+  width: 60px;
+  align-self: center;
 }

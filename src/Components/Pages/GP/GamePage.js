@@ -6,6 +6,7 @@ import Strikes from './Strikes';
 import {connect} from 'react-redux';
 import {strikeUpdater} from '../../../dux/reducer'
 import './GamePage.css';
+import axios from 'axios';
 
  class GamePage extends Component {
 constructor() {
@@ -22,17 +23,6 @@ constructor() {
   this.showDefinitionFunction = this.showDefinitionFunction.bind(this);
   
 }
-
-// componentDidMount() {
-//   this.updateStrikeNumber()
-// }
-
-// updateStrikeNumber() {
-
-//   this.setState({
-//     strikeNumber: this.props.strikeNumber 
-//   })
-// }
 
 
 
@@ -59,15 +49,18 @@ render() {
       <div >
           <Header title={this.state.title}/>
         <div className="gp">
-            { (this.props.strikeNumber === 5) ? (<div className="gameover">
+            { 
+              (this.props.strikeNumber === 5) ? (
+              <div className="gameover">
               <div>GAME OVER </div>
               <img className="boom" src={boom} alt="game exploded"/>
               <div> Oops your word exploded </div>
               <div>
                 <button className="reset-button" onClick={() => window.location.reload()} > New Word </button>
               </div>
-            </div> ) : null }
-          {(this.props.strikeNumber === 5) ? null : (<div >
+              </div> ) : null
+           }
+           {(this.props.strikeNumber === 5) ? null : (<div >
         
             {this.state.showDefinition ? <Definition/> : null}
             {(!this.state.showDefinition || this.props.strikeNumber === 4)? <div><button  onClick={this.showDefinitionFunction}>Definiton</button> </div> : null /*if showdefinition is false show button*/ }
