@@ -44,6 +44,12 @@ app.post('/auth/logout', authController.logout);
 app.get('/api/words', wordsController.getWords);
 
 
+//WORDCONTROLLER ENDPOINTS
+app.post('/api/words', wordsController.createWord)
+app.get('/api/words', wordsController.userWords)
+app.delete('/api/words/:id', wordsController.delete)
+app.put('/api/words/:id', wordsController.updateWord)
+
 //SERVER (PORT)
 const PORT = 4000;
 app.listen(PORT, () => {console.log(`listening on port ${PORT}`)});

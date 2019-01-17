@@ -13,11 +13,12 @@ create table if not exists users(
   name varchar(50) not null,
   email varchar(50) not null,
   picture text,
-  auth0_id text
+  auth0_id text unique
 );
 
 create table if not exists words(
+  w_id serial,
   name varchar(12), 
-  definition varchar(100),
-  user_id int references users(id) --uses a value from another table
+  definition varchar(140),
+  user_id text references users(auth0_id) --uses a value from another table
 );

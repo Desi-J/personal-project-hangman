@@ -7,30 +7,102 @@ var unirest = require("unirest");
 export default class UserDashboard extends Component {
   constructor() {
     super()
-
+    
     this.state = {
       title: "User Dashboard",
       user: null,
-      randomWord: ""
+      word: "",
+      definition: "",
+      wordList: []
 
     }
+    this.changeHandler = this.changeHandler.bind(this)
+    this.getUserWords = this.getUserWords.bind(this);
+    this.submitWord = this.submitWord.bind(this);
+    this.updateWord = this.updateWord.bind(this)
   }
 
-  getRandomWord() {
-    unirest.get('https://wordsapiv1.p.mashape.com/words/?random=true')
-      .header('X-Mashape-Key', 'e1e099fd5bmsh5d829bfad35ca03p19bb32jsn5139a618cb76')
-    // axios.get('https://wordsapiv1.p.mashape.com/words/?random=true')
-    .then(response => {
-      this.setState({ randomWord: response})
-    }).catch(error => {
-      console.log('did not get the random word', error)
+componentDidMount() {
+  this.getUserWords()
+}
+// allows you to set state with multiple infputs with 1 function 
+  changeHandler(event){
+    this.setState({
+      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value,
     })
+
   }
+
+getUserWords() {
+  axios.get(`/api/words`).then((response) => {
+    console.log('uerWordsResponse', response.data)
+    this.setState({ wordList: response.data})
+  }).catch(error => {
+    console.log('readUSERwords error frontend: ', error)
+  })
+}
+
+submitWord(addedWord,addedDefinition) {
+  axios.post(`/api/words`, {
+    name: addedWord,
+    definition: addedDefinition}) //req.body
+    .then((response) => {
+      console.log('word updated', response)
+      this.setState({ wordList: response.data})
+      // window.location.reload()
+    })
+    .catch(error => {
+      console.log('submit word error frontend: ', error)
+    })
+
+}
+
+updateWord(id) {
+  console.log('update id:', id)
+  const newWord = {
+    name: this.state.word,
+    definition: this.state.definition
+  } 
+  axios.put(`/api/words/${id}`, newWord) //THE 2ND AXIOS PARAM IS THE BODY so like req.body.whatever
+  .then((response) => {
+    console.log('update res: ', response)
+    this.setState({ wordList: response.data})
+  }).catch(error => {
+    console.log('update error frontend:', error)
+  });
+}
+
+deleteWord(id) {
+  console.log('delete id: ', id)
+  axios.delete(`/api/words/${id}`)
+  .then((response) => {
+    console.log('res', response)
+    this.setState({ wordList: response.data})
+    // window.location.reload()
+  });
+}
+    
 
   
+render() {
+  console.log('dashSTATE', this.state)
+  let {wordList} = this.state;
+  const userWordCards = wordList.map(word => {
+    return (
+    <div className="word_card" key={word.w_id}> 
+        
+              <div className="w0rd">{word.name}</div>
+              <div className="d3f">{word.definition}</div>
 
-  render() {
-    console.log('wordsAPI: ', this.state.randomWord)
+              <div className="ud">  
+                <button className="deleteButton" onClick={() => this.deleteWord(word.w_id)} >Delete</button>
+                <button onClick={() => this.updateWord(word.w_id)}>Update</button>
+              </div>
+
+            </div>
+    )
+  })
     return(
       
       <div className="main">
@@ -43,20 +115,19 @@ export default class UserDashboard extends Component {
 
           <div className="user_words">
 
-            <div className="word_card">
-              <div className="w0rd"> Word </div>
-              <div className="d3f"> Definition </div>
-            </div>
+           <div>{userWordCards}</div>
 
           
           </div>
 
           <div className="createAWord" >Add A New Word
-            <p1>Enter Word</p1>
-            <div><input  className="wordName"/> <button onClick={this.getRandomWord}>Random</button></div>
-            <p1>Enter Definition</p1>
-            <textarea rows="7" cols="40" maxLength="140" className="word_def"/>
-            <button className="button">Submit</button>
+
+            <div>Enter Word</div>
+            <div><input  name="word" className="wordName" maxLength="12" onChange={this.changeHandler}/> </div>
+            <div>Enter Definition</div>
+            <textarea name="definition" maxLength="140" className="word_def" onChange={this.changeHandler}/>
+            <button className="button" onClick={() => this.submitWord(this.state.word, this.state.definition)}  >Submit</button>
+
           </div>
 
       </div>

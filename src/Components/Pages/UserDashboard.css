@@ -26,13 +26,15 @@ header {
 .word_card {
   height: 150px;
   max-width:  400px;
-  background-color: white;
+  background-color:white;
   font-size: 20px;
   margin: 0 auto;
   border-style: solid;
+  margin-top: 3px;
 }
 
 .w0rd {
+  font-size: 24px;
   font-weight: bold;
 }
 
@@ -67,4 +69,8 @@ header {
 .button {
   width: 60px;
   align-self: center;
+}
+
+.ud {
+  
 }
