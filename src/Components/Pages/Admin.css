@@ -4,3 +4,12 @@
     height: 100%;
     width: 100%;
   }
+
+  .adminList {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border-style: ridge;
+    align-items: flex-start;
+    margin-top: 3px;
+  }

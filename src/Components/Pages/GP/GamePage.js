@@ -7,6 +7,8 @@ import {connect} from 'react-redux';
 import {strikeUpdater} from '../../../dux/reducer'
 import './GamePage.css';
 import axios from 'axios';
+import '../../../reset.css'
+
 
  class GamePage extends Component {
 constructor() {
@@ -63,7 +65,7 @@ render() {
            {(this.props.strikeNumber === 5) ? null : (<div >
         
             {this.state.showDefinition ? <Definition/> : null}
-            {(!this.state.showDefinition || this.props.strikeNumber === 4)? <div><button  onClick={this.showDefinitionFunction}>Definiton</button> </div> : null /*if showdefinition is false show button*/ }
+            {(this.state.showDefinition || this.props.strikeNumber >= 4)? null : <div><button  onClick={this.showDefinitionFunction}>Definiton</button> </div> /*if showdefinition is false show button*/ }
             <Word />
           
           </div>)

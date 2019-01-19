@@ -1,4 +1,4 @@
-select users.name, users.email, words.name, words.defintion
+select users.email, words.name, words.definition, words.w_id
 from users 
-right join words on users.id = words.user_id
+right join words on auth0_id = words.user_id
 order by users.id;

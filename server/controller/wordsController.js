@@ -34,6 +34,17 @@ module.exports = {
       res.status(500).send('wordscontroller userwords error', error)
     })
   },
+  ////////////READ ALL USERS AND WORDS//////////////////
+  admin: (req,res) => {
+    const database = req.app.get('db')
+
+    database.admin().then(info => {
+      console.log('admin res:', res)
+      res.send(info)
+    }).catch(error => {
+      res.status(500).send('admin error', error)
+    })
+  },
   ////////UPDATE//////////
   updateWord: (req,res) => {
     const database = req.app.get('db')

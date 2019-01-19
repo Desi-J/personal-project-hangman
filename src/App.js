@@ -3,6 +3,7 @@ import routes from './routes';
 // import Header from './Components/Header/Header';
 // import GamePage from './Components/Pages/GP/GamePage'
 import './App.css';
+import './reset.css'
 
 class App extends Component {
   render() {

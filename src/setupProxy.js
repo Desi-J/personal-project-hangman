@@ -10,6 +10,8 @@ module.exports = function(app) {
   app.use(
     proxy(["/auth", "/api"], {
       target: "http://localhost:4000/"
-    })
+    },
+    //STRIPE
+    app.use('stripe', proxy({target: 'http://localhost:4000'})))
   );
 };

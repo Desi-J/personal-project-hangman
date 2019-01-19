@@ -15,6 +15,23 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 
+
+//STRIPE
+const stripe = require('stripe')(process.env.STRIPE_SECRET) //ACTUAL CODE IS IN THE ENV FILE
+
+app.post('/stripe', (req,res) => {
+  const {token,amount} = req.body;
+  stripe.charges.create({source:token.id,
+  amount,
+  currency: 'usd',
+  description: 'Thank you for your donation'},
+  (error, response) =>{
+    error
+    ? res.status(500).send({error})
+    : res.status(200).send({response})
+  })
+})
+
 //SESSION
 app.use(session({
   store: new (connect(session)) ({
@@ -47,6 +64,7 @@ app.get('/api/words', wordsController.getWords);
 //WORDCONTROLLER ENDPOINTS
 app.post('/api/words', wordsController.createWord)
 app.get('/api/words', wordsController.userWords)
+app.get('/api/admin', wordsController.admin)
 app.delete('/api/words/:id', wordsController.delete)
 app.put('/api/words/:id', wordsController.updateWord)
 

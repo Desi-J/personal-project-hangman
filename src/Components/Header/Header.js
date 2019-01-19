@@ -4,8 +4,11 @@ import {connect} from 'react-redux';
 import {setUser} from '../../dux/reducer';
 import { withRouter } from 'react-router-dom'
 import axios from 'axios';
-// import UserDashboard from '../Component/Pages/UserDashboard';
 import './Header.css'
+import StripeCheckout from 'react-stripe-checkout';
+
+
+
 
 class Header extends Component {
   constructor() {
@@ -13,10 +16,11 @@ class Header extends Component {
 
     this.state = {
       
-      user: null
-
+      user: null,
+      amount: 500 // MUST SET AMMOUNT FOR THE STRIPE APP THINGY
     }
     this.logout = this.logout.bind(this)
+    this.onToken = this.onToken.bind(this)
   }
   
   componentDidMount() {
@@ -28,7 +32,15 @@ class Header extends Component {
       console.log('compoenntDIDmount error did not get stuff', error)
     })
   }
-  
+
+  //A STRIPE FUNCTION THAT DOES A POST TO A STRIPE ACCOUNT
+  onToken(token) {
+    console.log(token)
+    const {amount} = this.state
+    axios.post('/stripe', {token,amount})
+    .then(res => alert('payment sucessful')
+    )
+  }
   
 
   login() {
@@ -46,7 +58,7 @@ class Header extends Component {
 
   render() {
     const logo = "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png";
-    let {user} = this.state
+    let {user,amount} = this.state
     let button;
     let pic = (user && user.picture)
     // Conditional rendering for the login/logout button
@@ -55,18 +67,28 @@ class Header extends Component {
 
     //Conditional rendering for the page names
     const title = this.props.title
-    // const {pic} = user.picture
-    // console.log('state-user(HEADER):', user)
-    // console.log('headerUSER', user)
-    // console.log('pic', pic)
+    console.log('KEYYY', process.env.REACT_APP_STRIPE_PKEY)
     return (
       <header className="Header">
         <div>
-
         <Link to="/" className="links">
         <img src={logo} alt="Logo" className="Logo" title="New Game"/>
         </Link>
           <div className="page_name">{title}</div>
+        {/* <TakeMoney/> */}
+        <button className="donate">
+
+          <StripeCheckout className="stripe"
+            ComponentClass = "stripe"
+            email = "test@test.com"
+            amount ={amount}
+            description=""
+            token = {this.onToken}
+            allowRememberMe={false}
+            //PUBLISHABLE KEY
+            stripeKey = {process.env.REACT_APP_STRIPE_PKEY} >Donate</StripeCheckout>
+
+        </button>
 
           <div className="right">
           {(user) 
