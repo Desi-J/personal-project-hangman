@@ -30,7 +30,7 @@ constructor() {
 
 showDefinitionFunction() {
   // window.confirm is a function with true false if press ok then true if press cancel then false and cancel
-  if (window.confirm("Click to show definition of the word. WARNING will give you a strike!")) {this.setState ({
+  if (window.confirm("Click to show a hint for the word. WARNING will give you a strike!")) {this.setState ({
     showDefinition: true
   })
 
@@ -48,8 +48,11 @@ render() {
   return (
     
     <div className="gamepage-parent">
-      <div >
+        <div >
           <Header title={this.state.title}/>
+        </div>
+
+        <div className="wholebox">
         <div className="gp">
             { 
               (this.props.strikeNumber === 5) ? (
@@ -65,17 +68,16 @@ render() {
            {(this.props.strikeNumber === 5) ? null : (<div >
         
             {this.state.showDefinition ? <Definition/> : null}
-            {(this.state.showDefinition || this.props.strikeNumber >= 4)? null : <div><button  onClick={this.showDefinitionFunction}>Definiton</button> </div> /*if showdefinition is false show button*/ }
-            <Word />
+            {(this.state.showDefinition || this.props.strikeNumber >= 4)? null : <div><button  onClick={this.showDefinitionFunction}>Hint</button> </div> /*if showdefinition is false show button*/ }
+            <div className="wordcomponent" ><Word  /></div>
           
           </div>)
            }
           </div>
-        </div>
           <div >
           { (this.props.strikeNumber === 5) ? null  : <Strikes className="strikes"/>}
           </div>
-            
+          </div>  
       </div>
     
     )

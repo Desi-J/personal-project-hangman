@@ -1,3 +1,7 @@
+.main {
+  height: 10vh;
+}
+
 header {
   position: fixed;
 }
@@ -16,10 +20,19 @@ header {
   height: 90vh;
   background-color: lightgreen;
 }
+
+.pix {
+  max-width: 25vw;
+}
+.email {
+  font-size: 32px;
+  color: white;
+}
 /* ****************************************************************** */
 .user_words {
   width: 40vw;
   height: 90vh;
+  overflow: scroll;
   background-color: cornflowerblue;
   
 }

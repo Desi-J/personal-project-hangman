@@ -64,7 +64,7 @@ class Header extends Component {
     // Conditional rendering for the login/logout button
     if (this.state.user) {button = <button className="LogoutButton" onClick={this.logout}>Logout</button>}
     else { button = <button className="LoginButton" onClick={this.login}>Sign Up/Login</button>}
-
+    
     //Conditional rendering for the page names
     const title = this.props.title
     console.log('KEYYY', process.env.REACT_APP_STRIPE_PKEY)
@@ -76,6 +76,13 @@ class Header extends Component {
         </Link>
           <div className="page_name">{title}</div>
         {/* <TakeMoney/> */}
+
+          <div className="right">
+          {(user) 
+          ? <Link to="/userdashboard"  title="User Dashboard"><img src={pic} alt="user-image"className="user-pic"/></Link> 
+          : null}
+            
+           <div className="login-out">{button}</div>
         <button className="donate">
 
           <StripeCheckout className="stripe"
@@ -89,13 +96,6 @@ class Header extends Component {
             stripeKey = {process.env.REACT_APP_STRIPE_PKEY} >Donate</StripeCheckout>
 
         </button>
-
-          <div className="right">
-          {(user) 
-          ? <Link to="/userdashboard"  title="User Dashboard"><img src={pic} alt="user-image"className="user-pic"/></Link> 
-          : null}
-            
-           <div className="login-out">{button}</div>
           </div>
           
          

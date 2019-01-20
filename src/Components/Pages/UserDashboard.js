@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import Header from '../Header/Header'
 import './UserDashboard.css';
 import axios from 'axios';
-var unirest = require("unirest");
+import {connect} from 'react-redux';
 
-export default class UserDashboard extends Component {
+
+class UserDashboard extends Component {
   constructor() {
     super()
     
@@ -19,10 +20,12 @@ export default class UserDashboard extends Component {
     this.changeHandler = this.changeHandler.bind(this)
     this.getUserWords = this.getUserWords.bind(this);
     this.submitWord = this.submitWord.bind(this);
-    this.updateWord = this.updateWord.bind(this)
+    this.updateWord = this.updateWord.bind(this);
+    this.getUser = this.getUser.bind(this);
   }
 
 componentDidMount() {
+  this.getUserWords()
   this.getUserWords()
 }
 // allows you to set state with multiple infputs with 1 function 
@@ -33,6 +36,12 @@ componentDidMount() {
     })
 
   }
+
+getUser() {
+  this.setState({
+    user: this.props.user
+  })
+}
 
 getUserWords() {
   axios.get(`/api/words`).then((response) => {
@@ -88,6 +97,10 @@ deleteWord(id) {
 render() {
   console.log('dashSTATE', this.state)
   let {wordList} = this.state;
+  let {user} = this.props
+  let pic = (user && user.user.picture)
+  let email = (user && user.user.email)
+  console.log("user", user)
   const userWordCards = wordList.map(word => {
     return (
     <div className="word_card" key={word.w_id}> 
@@ -110,7 +123,9 @@ render() {
         <div className="udb">
           <div className="user_info">
 
-            <form>hi</form>
+            <form>Hi</form>
+            <div className="pik"> <img className="pix" src={pic} alt="pic"/> </div>
+            <div className="email">{email}</div>
           </div>
 
           <div className="user_words">
@@ -124,9 +139,10 @@ render() {
 
             <div>Enter Word</div>
             <div><input  name="word" className="wordName" maxLength="12" onChange={this.changeHandler}/> </div>
-            <div>Enter Definition</div>
+            <div>Enter A Hint</div>
             <textarea name="definition" maxLength="140" className="word_def" onChange={this.changeHandler}/>
             <button className="button" onClick={() => this.submitWord(this.state.word, this.state.definition)}  >Submit</button>
+            <div>Add a new word to the game. So that other players will be able to try and guess it.</div>
 
           </div>
 
@@ -135,3 +151,12 @@ render() {
     )
   }
 }
+
+//GETS USER FROM REDUX STORE
+function mapStateToProps(reducerState) {
+  return {
+    user: reducerState.user
+  }
+}
+
+export default connect(mapStateToProps)(UserDashboard);

@@ -138,7 +138,7 @@ render() {
       <div className="word">
         <div className="puzzleword">{puzzleWord}</div>
        
-          <input placeholder="Guess A Letter"  maxLength={1} onChange={this.guessLetter}/>
+          <input placeholder="Guess A Letter"  maxLength={1} onKeyDown={e=>{if(e.keyCode===13){this.updatePuzzleWord()}}} onChange={this.guessLetter}/>
           <button className="enter-button" title="You Can Also Press Enter" onClick={() => this.updatePuzzleWord()}  >Try</button>
           {/* <div><input type='text' value={this.state.puzzleInput} onChange={(e) => this.handleChange(e, 'puzzleInput')} placeholder='Enter puzzle word.'/><button onClick={this.submitWord}>Submit</button></div> */}
         

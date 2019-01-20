@@ -27,9 +27,9 @@ export default class Admin extends Component {
       return (
         <div className="adminList" key={item.w_id}>
         
-          <div className="email">user email: { item.email}</div>
-          <div className="email">word: { item.name}</div>
-          <div className="email">definition: { item.definition}</div>
+          <div className="user-email">user email: { item.email}</div>
+          <div className="word-name">word: { item.name}</div>
+          <div className="def">definition: { item.definition}</div>
           <div className="id" >word id: {item.w_id} </div>
 
         </div>
