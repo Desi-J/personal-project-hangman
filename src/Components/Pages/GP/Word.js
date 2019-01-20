@@ -23,11 +23,11 @@ export class Word extends Component {
   }
 
   componentDidMount(){
-    console.log('did')
+    // console.log('did')
   }
   
   componentWillMount() {
-    console.log('will ')
+    // console.log('will ')
     this.fetchWords()
   
   }
