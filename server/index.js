@@ -14,7 +14,8 @@ dotenv.config();
 //SERVER
 const app = express();
 app.use(bodyParser.json());
-
+//HOSTING
+app.use( express.static( `${__dirname}/../build` ) );
 
 //STRIPE
 const stripe = require('stripe')(process.env.STRIPE_SECRET) //ACTUAL CODE IS IN THE ENV FILE
@@ -67,6 +68,15 @@ app.get('/api/words', wordsController.userWords)
 app.get('/api/admin', wordsController.admin)
 app.delete('/api/words/:id', wordsController.delete)
 app.put('/api/words/:id', wordsController.updateWord)
+
+
+
+//HOSTING
+const path = require('path')
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+})
+
 
 //SERVER (PORT)
 const PORT = 4000;
