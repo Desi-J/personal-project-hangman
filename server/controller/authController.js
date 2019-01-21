@@ -12,7 +12,7 @@ module.exports = {
       client_secret: process.env.AUTH0_CLIENT_SECRET,
       code,
       grant_type: 'authorization_code' ,
-      redirect_uri: `http://${req.headers.host}/auth/callback`
+      redirect_uri: redirect_uri
     };
     function tradeCodeForAccessToken() {
       return axios.post(`https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`, payload)
