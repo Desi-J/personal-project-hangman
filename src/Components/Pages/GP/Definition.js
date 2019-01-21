@@ -15,7 +15,7 @@ class Definition extends Component {
   component
  render() {
    let def = this.props.wordObj
-   console.log('wordObj: ', def)
+  //  console.log('wordObj: ', def)
    return(
      <div className="word-def">{def.definition}</div>
    )
