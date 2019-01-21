@@ -67,7 +67,6 @@ class Header extends Component {
     
     //Conditional rendering for the page names
     const title = this.props.title
-    console.log('KEYYY', process.env.REACT_APP_STRIPE_PKEY)
     return (
       <header className="Header">
         <div>
@@ -91,6 +90,7 @@ class Header extends Component {
             amount ={amount}
             description=""
             token = {this.onToken}
+            allowRememberMe={false}
             //PUBLISHABLE KEY
             stripeKey = {process.env.REACT_APP_STRIPE_PKEY} >Donate</StripeCheckout>
 
