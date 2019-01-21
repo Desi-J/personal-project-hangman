@@ -91,7 +91,6 @@ class Header extends Component {
             amount ={amount}
             description=""
             token = {this.onToken}
-            allowRememberMe={false}
             //PUBLISHABLE KEY
             stripeKey = {process.env.REACT_APP_STRIPE_PKEY} >Donate</StripeCheckout>
 
