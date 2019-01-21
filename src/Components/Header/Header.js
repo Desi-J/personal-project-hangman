@@ -57,7 +57,7 @@ class Header extends Component {
   }
 
   render() {
-    const logo = "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png";
+    const logo = "../../images/GuessLogo.jpeg"
     let {user,amount} = this.state
     let button;
     let pic = (user && user.picture)
@@ -78,7 +78,7 @@ class Header extends Component {
 
           <div className="right">
           {(user) 
-          ? <Link to="/userdashboard"  title="User Dashboard"><img src={pic} alt="user-image"className="user-pic"/></Link> 
+          ? <Link to="/userdashboard"  title="User Dashboard"><img src={pic} alt="user"className="user-pic"/></Link> 
           : null}
             
            <div className="login-out">{button}</div>

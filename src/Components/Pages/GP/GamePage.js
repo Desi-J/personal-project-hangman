@@ -6,7 +6,7 @@ import Strikes from './Strikes';
 import {connect} from 'react-redux';
 import {strikeUpdater} from '../../../dux/reducer'
 import './GamePage.css';
-import axios from 'axios';
+// import axios from 'axios';
 import '../../../reset.css'
 
 
@@ -65,7 +65,7 @@ render() {
               </div>
               </div> ) : null
            }
-           {(this.props.strikeNumber === 5) ? null : (<div >
+           {(this.props.strikeNumber === 5) ? null : (<div className="def-box">
         
             {this.state.showDefinition ? <Definition/> : null}
             {(this.state.showDefinition || this.props.strikeNumber >= 4)? null : <div><button  onClick={this.showDefinitionFunction}>Hint</button> </div> /*if showdefinition is false show button*/ }

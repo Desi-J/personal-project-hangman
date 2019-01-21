@@ -26,7 +26,7 @@ class UserDashboard extends Component {
 
 componentDidMount() {
   this.getUserWords()
-  this.getUserWords()
+  
 }
 // allows you to set state with multiple infputs with 1 function 
   changeHandler(event){
@@ -44,8 +44,8 @@ getUser() {
 }
 
 getUserWords() {
-  axios.get(`/api/words`).then((response) => {
-    console.log('uerWordsResponse', response.data)
+  axios.get(`/api/user/words`).then((response) => {
+    // console.log('uerWordsResponse', response.data)
     this.setState({ wordList: response.data})
   }).catch(error => {
     console.log('readUSERwords error frontend: ', error)
@@ -54,10 +54,10 @@ getUserWords() {
 
 submitWord(addedWord,addedDefinition) {
   axios.post(`/api/words`, {
-    name: addedWord,
+    name: addedWord.toLowerCase(),
     definition: addedDefinition}) //req.body
     .then((response) => {
-      console.log('word updated', response)
+      // console.log('word updated', response)
       this.setState({ wordList: response.data})
       // window.location.reload()
     })
@@ -68,14 +68,14 @@ submitWord(addedWord,addedDefinition) {
 }
 
 updateWord(id) {
-  console.log('update id:', id)
+  // console.log('update id:', id)
   const newWord = {
-    name: this.state.word,
+    name: this.state.word.toLowerCase(),
     definition: this.state.definition
   } 
   axios.put(`/api/words/${id}`, newWord) //THE 2ND AXIOS PARAM IS THE BODY so like req.body.whatever
   .then((response) => {
-    console.log('update res: ', response)
+    // console.log('update res: ', response)
     this.setState({ wordList: response.data})
   }).catch(error => {
     console.log('update error frontend:', error)
@@ -83,10 +83,10 @@ updateWord(id) {
 }
 
 deleteWord(id) {
-  console.log('delete id: ', id)
+  // console.log('delete id: ', id)
   axios.delete(`/api/words/${id}`)
   .then((response) => {
-    console.log('res', response)
+    // console.log('res', response)
     this.setState({ wordList: response.data})
     // window.location.reload()
   });
@@ -95,12 +95,12 @@ deleteWord(id) {
 
   
 render() {
-  console.log('dashSTATE', this.state)
+  // console.log('dashSTATE', this.state)
   let {wordList} = this.state;
   let {user} = this.props
   let pic = (user && user.user.picture)
   let email = (user && user.user.email)
-  console.log("user", user)
+  // console.log("user", user)
   const userWordCards = wordList.map(word => {
     return (
     <div className="word_card" key={word.w_id}> 

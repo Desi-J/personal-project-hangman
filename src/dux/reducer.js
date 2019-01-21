@@ -6,7 +6,6 @@ const initialState = {
   user: null
 }
 
-console.log('user: ', initialState.user)
 //ACTION TYPES
 const UPDATE_STRIKES = "UPDATE_STRIKES";
 const UPDATE_WORD = "UPDATE_WORD";

@@ -71,7 +71,7 @@ module.exports = {
     })
   },
     getUser: (req,res) => {
-      console.log('getuser works', req.session)
+      // console.log('getuser works', req.session)
       res.json({ user: req.session.user});
   },
 

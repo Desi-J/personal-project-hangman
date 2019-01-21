@@ -26,7 +26,9 @@ module.exports = {
   //////////READ USER'S WORDS ONLY////////////////
   userWords: (req,res) => {
     const database = req.app.get('db');
-    database.user_words()
+    console.log('--------------', req.session.user.auth0_id)
+
+    database.user_words([req.session.user.auth0_id])
     .then(words => {
       console.log('userwords', words)
       res.status(200).send(words) //CAN ONLY DO 1 SEND PER.THEN
@@ -37,7 +39,6 @@ module.exports = {
   ////////////READ ALL USERS AND WORDS//////////////////
   admin: (req,res) => {
     const database = req.app.get('db')
-
     database.admin().then(info => {
       console.log('admin res:', res)
       res.send(info)

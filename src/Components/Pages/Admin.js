@@ -16,13 +16,13 @@ export default class Admin extends Component {
   componentDidMount() {
     axios.get('/api/admin')
     .then((response) => {
-      console.log('admin res:', response)
+      // console.log('admin res:', response)
       this.setState({ adminList: response.data})
     })
   }
   render() {
     const {adminList} = this.state //CONSOLE.LOG STATE LATER CUZ ASYNCRONOUS
-    console.log('adminlist', adminList)
+    // console.log('adminlist', adminList)
     const List = adminList.map(item => {
       return (
         <div className="adminList" key={item.w_id}>

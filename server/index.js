@@ -58,13 +58,12 @@ massive(process.env.CONNECTION_STRING).then(db => {
 app.get('/auth/callback', authController.login);
 app.get('/auth/user-data', authController.getUser);
 app.post('/auth/logout', authController.logout);
-//WORDS CONTROLLER ENDPOINTS
-app.get('/api/words', wordsController.getWords);
 
 
 //WORDCONTROLLER ENDPOINTS
+app.get('/api/words', wordsController.getWords);
 app.post('/api/words', wordsController.createWord)
-app.get('/api/words', wordsController.userWords)
+app.get('/api/user/words', wordsController.userWords)
 app.get('/api/admin', wordsController.admin)
 app.delete('/api/words/:id', wordsController.delete)
 app.put('/api/words/:id', wordsController.updateWord)
